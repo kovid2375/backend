@@ -25,7 +25,7 @@ const [notes, setNotes] = useState([
 ])
 
 function fetchNotes(){
-  axios.get('http://localhost:3000/api/notes').then((res)=>{
+  axios.get('https://backend-1-ibir.onrender.com/api/notes').then((res)=>{
   setNotes(res.data.notes)
   })
 }
@@ -39,7 +39,7 @@ function handleSubmit(e){
   const {title,discription}= e.target.elements
   console.log(title.value,discription.value);
 
-  axios.post('http://localhost:3000/api/notes',{
+  axios.post('https://backend-1-ibir.onrender.com/api/notes',{
     title:title.value,
     discription:discription.value
   }).then(res=>{
@@ -50,7 +50,7 @@ function handleSubmit(e){
 
 function handleDeleteNote(noteId){
   console.log(noteId);
-  axios.delete("http://localhost:3000/api/notes/"+noteId).then(res=>{
+  axios.delete("https://backend-1-ibir.onrender.com/api/notes/"+noteId).then(res=>{
     console.log(res.data);
 
     fetchNotes()
