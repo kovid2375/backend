@@ -1,0 +1,38 @@
+==> Authentication
+    ==> Register (1. user ka data save karna. 2. token user ko dena)
+    ==> Login
+    ==> Logout(token blacklisting)
+    ==>[OTB based registration]
+
+
+==> Post
+    ==> Create
+    ==> can see the feed
+    ==> like posts (collection types)
+    ==> save post 
+
+
+==> Users
+    ==> Followers
+    ==> Follwing
+
+
+==> User Schema (for register and login)
+    ==> username:stirng
+    ==> email:stirng
+    ==> password:stirng
+    ==>bio:stirng
+    ==>followers:stirng
+    ==>profile_image:stirng
+
+Q. why we dont send password in response when we register a user?
+
+
+
+==> Post Schema
+    ==>caption:stirng
+    ==>img_url:stirng
+    ==>user:user_id
+    ==>createdAt:Date-time
+
+Q. why we dont store file on the server ?
