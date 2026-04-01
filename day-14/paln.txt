@@ -36,3 +36,4 @@ Q. why we dont send password in response when we register a user?
     ==>createdAt:Date-time
 
 Q. why we dont store file on the server ?
+Q. use of multer?
