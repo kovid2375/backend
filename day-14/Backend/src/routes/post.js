@@ -9,19 +9,40 @@ const upload = multer({storage:multer.memoryStorage()});
 const identifyUser = require('../middlewares/auth.middleware');
 
 
-// post /auth/post [protected route]
-// req.body -> caption, imgUrl, userId
+/**
+ * @route POST /post
+ * @desc Create a new post
+ * @access Private
+ * @body { content: String, image: File (optional) }
+ */
 
 
 postRouter.post("/",upload.single('image'),identifyUser,postController.createPost)
 
 
 
-//Get /auth/post-> [protected route] get all posts of a user
+/**
+ * @route GET /post
+ * @desc Get all posts of a user
+ * @access Private
+ */
+
 postRouter.get("/",identifyUser,postController.getPost)
 
 
 
-// Get /post/details/:postId-> return an detail about specific post with the id. aslo check wether the post belongs to the user taht the request come from or not. if not return unauthorized access
+/**
+ * @route GET /post/details/:postId
+ * @desc Get details of a specific post
+ * @access Private
+ */
 postRouter.get("/details/:postId",identifyUser,postController.getPostDetails)
 module.exports=postRouter;
+
+
+/**
+ * @route POST /post/like/:postId
+ * @desc Like a post
+ * @access Private
+ */
+postRouter.post("/like/:postId",identifyUser,postController.likePost)
