@@ -56,6 +56,7 @@ async function register(req,res){
         // data unique hona chahiye
 
         id:user._id,
+        username:user.username
 
     },process.env.JWT_SECRET,{expiresIn:'1d'})
 
@@ -110,7 +111,8 @@ async function login(req,res){
 
     const token=jwt.sign(
         {
-            id:user._id
+            id:user._id,
+            username:user.username
         }
     ,process.env.JWT_SECRET,{expiresIn:'1d'})
 
