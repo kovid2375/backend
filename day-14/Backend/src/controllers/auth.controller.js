@@ -93,7 +93,7 @@ async function login(req,res){
                 email:email
             }
         ]
-    })
+    }).select("+password") // we have to explicitly select the password field as we have set select:false in the user schema for password field
 
     if(!user){
         return res.status(404).json({

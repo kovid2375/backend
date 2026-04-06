@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { use } from 'react'
+import { useNavigate } from 'react-router-dom'
+import {useAuth} from '../hooks/useAuth'
 
 const RegisterForm = () => {
 
@@ -9,12 +11,22 @@ const RegisterForm = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
 
-    async function handleSubmit(e){
+    const {loading,handleRegister} = useAuth()
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        await handleRegister(username,email,password)
+        navigate('/')
 
         
+    }
+
+    if(loading){
+        return <h1 className='min-h-screen w-full flex items-center justify-center'>Loading...</h1>
     }
 
 

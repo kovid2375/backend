@@ -46,3 +46,12 @@ module.exports=postRouter;
  * @access Private
  */
 postRouter.post("/like/:postId",identifyUser,postController.likePost)
+
+
+/**
+ * @route Get /post/feed
+ * @desc get all the post created in the DB
+ * @access Private
+ */
+postRouter.get("/feed",identifyUser,postController.getFeed)
+

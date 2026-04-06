@@ -101,4 +101,14 @@ async function likePost(req,res) {
     })
 
 }
-module.exports={createPost, getPost, getPostDetails, likePost};
+
+async function getFeed(req,res) {
+    const post = await postModel.find().populate("user")
+    res.status(200).json({
+        message:"Feed fetched successfully",
+        post
+    })
+}
+
+
+module.exports={createPost, getPost, getPostDetails, likePost, getFeed};
