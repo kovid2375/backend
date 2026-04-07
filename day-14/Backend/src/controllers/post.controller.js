@@ -103,7 +103,16 @@ async function likePost(req,res) {
 }
 
 async function getFeed(req,res) {
-    const post = await postModel.find().populate("user")
+    const user=req.user
+    const post = await Promise.all((await postModel.find().populate("user").lean()).map(async(post)=>{
+        const isLiked=await likeModel.findOne({
+            user:user.username,
+            post:post._id
+        
+        })
+        post.isLiked=Boolean(isLiked)
+        return post
+    }))
     res.status(200).json({
         message:"Feed fetched successfully",
         post
