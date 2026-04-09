@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import Post from '../components/post'
 import { usePost } from '../hooks/usePost'
+import Nav from '../components/Nav'
 
 const Feed = () => {
 
@@ -16,7 +17,8 @@ const Feed = () => {
     console.log(feed);
     
   return (
-    <main className='flex items-start justify-center'> {/*feed page */}
+    <main className='flex items-center justify-center flex-col'> {/*feed page */}
+        <Nav/>
         <div className='max-w-[320px] w-full'>{/*feed */}
             <div className='w-full flex flex-col gap-2'>{/*posts*/}
                {feed.map(post=>{
