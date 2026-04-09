@@ -1,6 +1,10 @@
 import React from 'react'
+
 import { RiHeart3Line, RiChatSmile2Line, RiShareForwardLine, RiBookmarkLine } from '@remixicon/react'
-const Post = ({user,post}) => {
+const Post = ({user,post,handelLikePost,handelunLikePost}) => {
+    
+
+
   return (
     <div>
       <div className='w-full flex flex-col gap-2 bg-[#333] px-2 py-2'>{/*post*/}
@@ -13,7 +17,7 @@ const Post = ({user,post}) => {
                 <img className='w-full' src={post.imgUrl} alt="" />
                 <div className='flex justify-between '>{/* icons */}
                     <div className='flex flex-row gap-2'>{/**left */}
-                        <button className={post.isLiked?"text-red-700" : ""}><RiHeart3Line /></button>
+                        <button onClick={()=>{post.isLiked ? handelunLikePost(post._id):handelLikePost(post._id)}} className={post.isLiked?"text-red-700 active:sacle-85" : ""}><RiHeart3Line /></button>
                         <button className='active:scale-85'><RiChatSmile2Line /></button>
                         <button className='active:scale-85'><RiShareForwardLine /></button>
                     </div>

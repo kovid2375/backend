@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 
-import Post from '../components/post'
+import Post from '../components/Post'
 import { usePost } from '../hooks/usePost'
 import Nav from '../components/Nav'
 
 const Feed = () => {
 
-    const{feed,handelGetFeed,loading}=usePost()
+    const{feed,handelGetFeed,loading,handelLikePost,handelunLikePost}=usePost()
 
     useEffect(()=>{
         handelGetFeed()
@@ -22,7 +22,7 @@ const Feed = () => {
         <div className='max-w-[320px] w-full'>{/*feed */}
             <div className='w-full flex flex-col gap-2'>{/*posts*/}
                {feed.map(post=>{
-                return <Post user={post.user} post={post}/>
+                return <Post user={post.user} post={post} loading={loading} handelLikePost={handelLikePost} handelunLikePost={handelunLikePost}/>
                })}
             </div>
         </div>

@@ -49,6 +49,14 @@ postRouter.post("/like/:postId",identifyUser,postController.likePost)
 
 
 /**
+ * @route POST /post/unlike/:postId
+ * @desc Unlike a post
+ * @access Private
+ */ 
+postRouter.post("/unlike/:postId",identifyUser,postController.unlikePost)
+
+
+/**
  * @route Get /post/feed
  * @desc get all the post created in the DB
  * @access Private
