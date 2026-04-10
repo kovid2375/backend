@@ -28,6 +28,12 @@ const LoginForm = () => {
     }
 
   return (
+    <>
+    
+        <nav className='m-3'>
+        <button className='bg-amber-700 rounded-xl p-2 active:scale-95' onClick={()=>{navigate('/')}}>HomePage</button>
+      </nav>
+    
     <main className='min-h-screen w-full flex items-center justify-center '>
         <div className='h-fit min-w-100 flex flex-col gap-8 '>
             <h1 className='font-bold text-3xl'>Login</h1>
@@ -53,6 +59,7 @@ const LoginForm = () => {
             <p>Don't have an account? <Link className='text-blue-400' to='/register'>Register</Link></p>
         </div>
     </main>
+    </>
   )
 }
 

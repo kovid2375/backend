@@ -66,5 +66,34 @@ async function unfollowuser(req,res) {
         message:`you have unfollowed ${followingUsername}`
     })
 }
+async function getFollowing(req,res) {
+    try {
+        const username=req.user.username
+        const following =await followModel.find({
+            follower:username,
+            status:"accepted"
+        })
+        const followingList= following.map(f=> f.following)
+        res.status(200).json({
+            following:followingList
+        })
+    } catch (error) {
+        res.status(500).json({
+            message:"something went wrong"
+        })
+    }
+}
+async function getAllUsers(req,res) {
+    try {
+        const users=await userModel.find()
+        res.status(200).json({
+            users
+        })
+    }catch(err){
+        res.status(500).json({
+            message:"something went wrong"
+        })
+    }
 
-module.exports={followuser,unfollowuser}
+    }
+module.exports={followuser,unfollowuser,getFollowing,getAllUsers}

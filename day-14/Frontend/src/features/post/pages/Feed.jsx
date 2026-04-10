@@ -3,8 +3,11 @@ import React, { useEffect } from 'react'
 import Post from '../components/Post'
 import { usePost } from '../hooks/usePost'
 import Nav from '../components/Nav'
+import { useNavigate } from 'react-router-dom'
 
 const Feed = () => {
+
+    const navigate=useNavigate()
 
     const{feed,handelGetFeed,loading,handelLikePost,handelunLikePost}=usePost()
 
@@ -15,6 +18,8 @@ const Feed = () => {
         return <h1 className='min-h-screen w-full flex items-center justify-center'>Loading...</h1>
     }
     console.log(feed);
+
+    
     
   return (
     <main className='flex items-center justify-center flex-col'> {/*feed page */}

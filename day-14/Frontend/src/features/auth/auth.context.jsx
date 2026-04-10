@@ -1,9 +1,6 @@
 // state layer in react 
-
-
-
 import { createContext,useState,useEffect } from "react";
-import { login,register,getme } from "./services/auth.api.jsx";
+import { login,register, getme } from "./services/auth.api.jsx";
 export const AuthContext = createContext()
 
 export function AuthProvider({children}){
@@ -42,6 +39,8 @@ export function AuthProvider({children}){
         }
     
     }
+
+    
 
     return(
         <AuthContext.Provider value={{user,loading,handleLogin,handleRegister}}>

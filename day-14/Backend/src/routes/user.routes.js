@@ -21,6 +21,19 @@ userRouter.post("/follow/:username",identifyUser,userController.followuser)
 
 userRouter.post("/unfollow/:username",identifyUser,userController.unfollowuser)
 
+/**
+ * @route Get /user/following
+ * @desc get user followers
+ * @access Private
+ */
+userRouter.get("/following",identifyUser,userController.getFollowing)
 
 
+
+/**
+ * @route Get /user/all 
+ * @desc get all users 
+ * @access Private
+ */
+userRouter.get("/all",identifyUser,userController.getAllUsers)
 module.exports=userRouter;

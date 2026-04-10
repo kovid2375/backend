@@ -30,9 +30,13 @@ export async function login(username,password) {
         
     }
 }
-export async function getme() {
+export async function getme(username,profileImage,bio) {
     try {
-        const res=await api.get("/get-me")
+        const res=await api.get("/get-me",{
+            username,
+            profileImage,
+            bio
+        })
         return res.data;
     } catch (error) {
         throw new error("Failed to fetch user data");

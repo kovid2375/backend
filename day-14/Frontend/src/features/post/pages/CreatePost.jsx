@@ -34,7 +34,12 @@ const CreatePost = () => {
   }
 
   return (
+    <>
+    <nav className='m-3'>
+        <button className='bg-amber-700 rounded-xl p-2 active:scale-95' onClick={()=>{navigate('/')}}>HomePage</button>
+      </nav>
     <main className='min-h-screen w-full flex items-center justify-center'>
+      
       <div className=' h-fit min-w-100 flex flex-col gap-8'>
         <h1 className=' font-bold text-3xl'>Create Post</h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
@@ -46,6 +51,7 @@ const CreatePost = () => {
         </form>
       </div>
     </main>
+    </>
   )
 }
 
