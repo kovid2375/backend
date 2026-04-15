@@ -13,6 +13,7 @@ router.post('/register',authcontroller.register)
 router.post('/login',authcontroller.login)
 router.get('/get-me',identifyuser,authcontroller.getme)
 router.get('/logout',authcontroller.logout)
+router.get('/loggggout',authcontroller.logout)
 
 
 
