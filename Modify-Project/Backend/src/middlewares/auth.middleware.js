@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const blacklistModel=require('../models/blacklist.model')
-
+const redis=require('../config/cache')
 async function identifyuser(req,res,next) {
     const token=req.cookies.token
     if (!token){
@@ -8,12 +8,10 @@ async function identifyuser(req,res,next) {
             message: "Unauthorized"
         })
     }
-    const isBlackListedToken= await blacklistModel.findOne({
-        token
-    })
+    const isBlackListedToken= await redis.get(token)
     if (isBlackListedToken){
         return res.status(401).json({
-            message: "Unauthorized"
+            message: "not aplicable"
         })
     }
 
