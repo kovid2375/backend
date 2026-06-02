@@ -129,4 +129,3 @@ async function logout(req,res) {
 
 module.exports={register,login,getme,logout}
 
-
