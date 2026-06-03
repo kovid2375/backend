@@ -19,6 +19,10 @@ const authRouter=require('./routes/auth.routes')
 
 app.use('/auth',authRouter)
 
+const songRoutes=require('./routes/song.routes')
+
+app.use('/song',songRoutes)
+
 
 
 
