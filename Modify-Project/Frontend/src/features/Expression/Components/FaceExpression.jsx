@@ -26,21 +26,29 @@ export default function FaceExpression({ onClick = () => { } }) {
     }, []);
 
     async function handleClick() {
-        const expression = detect({ landmarkerRef, videoRef, setExpression })
-        console.log(expression)
-        onClick(expression)
+        const mood = detect({ landmarkerRef, videoRef, setExpression })
+
+        if (mood) {
+            onClick(mood)
+        }
     }
 
 
     return (
-        <div style={{ textAlign: "center" }}>
-            <video
-                ref={videoRef}
-                style={{ width: "400px", borderRadius: "12px" }}
-                playsInline
-            />
-            <h2>{expression}</h2>
-            <button onClick={handleClick} className="bg-red-700 p-2 rounded-2xl active:scale-95" >Detect expression</button>
+        <div className="expression-card">
+            <div className="expression-video-wrap">
+                <video
+                    ref={videoRef}
+                    className="expression-video"
+                    playsInline
+                />
+            </div>
+            <div className="expression-result">
+                <h2>{expression}</h2>
+                <button onClick={handleClick} className="detect-button" type="button">
+                    Detect mood
+                </button>
+            </div>
         </div>
     );
 }

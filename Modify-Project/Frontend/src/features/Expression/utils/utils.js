@@ -51,17 +51,21 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
         console.log(getScore("mouthFrownLeft"))
 
         let currentExpression = "Neutral";
+        let currentMood = null;
 
         if (smileLeft > 0.5 && smileRight > 0.5) {
-            currentExpression = "happy 😊";
+            currentExpression = "Happy";
+            currentMood = "happy";
         } else if (jawOpen > 0.2 && browUp > 0.2) {
-            currentExpression = "surprised 😮";
+            currentExpression = "Surprised";
+            currentMood = "surprised";
         } else if (frownLeft > 0.0001 && frownRight > 0.0001) {
-            currentExpression = "sad 😢";
+            currentExpression = "Sad";
+            currentMood = "sad";
         }
 
         setExpression(currentExpression);
 
-        return currentExpression
+        return currentMood
     }
 };

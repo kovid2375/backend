@@ -50,5 +50,16 @@ async function uploadSong(req,res){
             message:"Error uploading song"
         })
     }
+
 }
-module.exports={uploadSong}
+async function getSong(req,res){
+    const  {mood} = req.query
+    const song=await songModel.findOne({
+        mood
+    })
+    res.status(200).json({
+        message:"Song fetched successfully",
+        song
+    })
+}
+module.exports={uploadSong,getSong}
