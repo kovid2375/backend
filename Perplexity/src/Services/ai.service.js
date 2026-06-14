@@ -10,3 +10,9 @@ export async function testAi(){
         console.log(response.text)
     })
 }
+export async function hello() {
+    console.log(
+        'hello'
+    )
+    
+}
