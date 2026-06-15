@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 const App = () => {
   const auth = useAuth()
   useEffect(()=>{
-    auth.handleGetMe
+    auth.handleGetMe()
   },[])
   return (
     <>
