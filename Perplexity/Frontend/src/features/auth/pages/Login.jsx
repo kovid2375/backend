@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Mail,
   Lock,
   ArrowRight,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import {useSelector} from 'react-redux'
+import { useAuth } from "../hook/useAuth";
 
 const Login = () => {
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const user=useSelector(state=>state.auth.user)
+    const loading=useSelector(state=>state.auth.loading)
+
+    const{handleLogin}=useAuth()
     const navigate=useNavigate()
+
+    const submitForm=async (event)=>{
+        event.preventDefault()
+
+        const payload={
+            email,
+            password
+        }
+        await handleLogin(payload)
+        navigate("/")
+    }
+    if(!loading && user){
+        return <Navigate to="/" replace/>
+    }
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
       {/* Background Gradient */}
@@ -45,7 +68,7 @@ const Login = () => {
             </div>
 
             {/* Form */}
-            <form className="space-y-6">
+            <form onSubmit={submitForm} className="space-y-6">
               {/* Email */}
               <div className="space-y-2">
                 <label
@@ -64,6 +87,8 @@ const Login = () => {
                   <input
                     id="email"
                     type="email"
+                    value={email}
+                    onChange={(event)=>setEmail(event.target.value)}
                     placeholder="name@company.com"
                     className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800/80 pl-10 pr-4 text-white placeholder:text-slate-500 outline-none transition focus:border-blue-300 focus:ring-1 focus:ring-blue-300"
                   />
@@ -98,6 +123,8 @@ const Login = () => {
                     id="password"
                     type="password"
                     placeholder="••••••••"
+                    value={password}
+                    onChange={(event)=>setPassword(event.target.value)}
                     className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800/80 pl-10 pr-4 text-white placeholder:text-slate-500 outline-none transition focus:border-blue-300 focus:ring-1 focus:ring-blue-300"
                   />
                 </div>

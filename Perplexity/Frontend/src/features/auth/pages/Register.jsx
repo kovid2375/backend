@@ -10,7 +10,19 @@ import {
 import { Navigate, useNavigate } from "react-router-dom";
 
 const Register = () => {
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
   const [password, setPassword] = useState("");
+
+  const submitForm=(event)=>{
+    event.preventDefault()
+
+    const payload={
+        username,email,password
+    }
+
+    console.log('Register payload',payload)
+  }
 
   const navigate=useNavigate()
 
@@ -59,7 +71,7 @@ const Register = () => {
           </div>
 
           {/* Form */}
-          <form className="space-y-6">
+          <form onSubmit={submitForm} className="space-y-6">
             {/* Full Name */}
             <div className="space-y-2">
               <label
@@ -78,6 +90,8 @@ const Register = () => {
                 <input
                   id="fullName"
                   type="text"
+                  value={username}
+                  onChange={(event)=>setUsername(event.target.value)}
                   placeholder="Alex Rivera"
                   className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800/80 pl-12 pr-4 text-white placeholder:text-slate-500 outline-none transition focus:border-blue-300 focus:ring-2 focus:ring-blue-300/20"
                 />
@@ -102,6 +116,8 @@ const Register = () => {
                 <input
                   id="email"
                   type="email"
+                  value={email}
+                  onChange={(event)=>setEmail(event.target.value)}
                   placeholder="name@company.com"
                   className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800/80 pl-12 pr-4 text-white placeholder:text-slate-500 outline-none transition focus:border-blue-300 focus:ring-2 focus:ring-blue-300/20"
                 />

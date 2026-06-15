@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import app from './src/app.js';
-import connectDB from './src/config/database.js';
-import { testAi } from './src/Services/ai.service.js';
+import connectDB from './src/config/database.js'
 
 async function startServer() {
     try {
@@ -15,5 +14,5 @@ async function startServer() {
         process.exit(1);
     }
 }
-testAi()
+
 startServer();
