@@ -27,13 +27,19 @@ const searchInternetTool=tool(
     }
 )
 
-const agent = createAgent({
-    model:mistralModel,
-    tools:[searchInternetTool]
-})
+export async function generateResponse(messages, modelName){
+    console.log("Using model:", modelName);
+    console.log(messages);
 
-export async function generateResponse(message){
-    console.log(message)
+    let selectedModel = mistralModel;
+    if (modelName && modelName.toLowerCase().includes('gemini')) {
+        selectedModel = geminiModel;
+    }
+
+    const agent = createAgent({
+        model: selectedModel,
+        tools: [searchInternetTool]
+    });
 
     const response=await agent.invoke({
         messages:[

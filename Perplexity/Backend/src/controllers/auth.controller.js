@@ -24,6 +24,7 @@ async function register(req, res) {
             username,
             email,
             password: hashedPassword,
+            verified: true,
         });
         const emailVerificationToken = jwt.sign(
             { email: user.email },
@@ -34,20 +35,24 @@ async function register(req, res) {
         const baseUrl = process.env.APP_URL || 'http://localhost:3000';
         const verifyUrl = `${baseUrl}/api/auth/verify-email?token=${emailVerificationToken}`;
 
-        await sendEmail({
-            to: email,
-            subject: 'Verify your Perplexity account',
-            text: `Hi ${username},\n\nThanks for signing up for Perplexity. Verify your email by visiting:\n\n${verifyUrl}\n\nThis link expires in 24 hours.`,
-            html: `
-                <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; color: #1a1a1a;">
-                    <h1 style="font-size: 24px; margin-bottom: 8px;">Welcome, ${username}</h1>
-                    <p style="line-height: 1.5; color: #444;">Thanks for registering on Perplexity. Click the button below to verify your email address.</p>
-                    <a href="${verifyUrl}" style="display: inline-block; margin: 24px 0; padding: 12px 24px; background: #20808d; color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600;">Verify Email</a>
-                    <p style="font-size: 13px; color: #666; line-height: 1.5;">If the button does not work, copy and paste this link into your browser:</p>
-                    <p style="font-size: 12px; color: #999;">This link expires in 24 hours.</p>
-                </div>
-            `,
-        });
+        try {
+            await sendEmail({
+                to: email,
+                subject: 'Verify your Perplexity account',
+                text: `Hi ${username},\n\nThanks for signing up for Perplexity. Verify your email by visiting:\n\n${verifyUrl}\n\nThis link expires in 24 hours.`,
+                html: `
+                    <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; color: #1a1a1a;">
+                        <h1 style="font-size: 24px; margin-bottom: 8px;">Welcome, ${username}</h1>
+                        <p style="line-height: 1.5; color: #444;">Thanks for registering on Perplexity. Click the button below to verify your email address.</p>
+                        <a href="${verifyUrl}" style="display: inline-block; margin: 24px 0; padding: 12px 24px; background: #20808d; color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600;">Verify Email</a>
+                        <p style="font-size: 13px; color: #666; line-height: 1.5;">If the button does not work, copy and paste this link into your browser:</p>
+                        <p style="font-size: 12px; color: #999;">This link expires in 24 hours.</p>
+                    </div>
+                `,
+            });
+        } catch (emailError) {
+            console.warn("Failed to send verification email, proceeding anyway. Verification URL is:", verifyUrl);
+        }
 
         return res.status(201).json({
             success: true,
@@ -162,5 +167,13 @@ export async function getMe(req,res){
     })
 }
 
+
+export async function logout(req,res){
+    res.clearCookie("token");
+    res.status(200).json({
+        success:true,
+        message:"Logged out successfully"
+    })
+}
 
 export { register,login };
