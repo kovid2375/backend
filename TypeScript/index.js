@@ -70,4 +70,13 @@ function getFirst(arr) {
 }
 console.log(getFirst([1, 2, 3])); //returns number
 console.log(getFirst(["a", "b", "c"])); //returns string
+// Identity wrapper -> another classic example 
+function wrap(value) {
+    return { value };
+}
+// OBJECTS , INTERFACES and TYPES ->
+function printUser(user) {
+    console.log(user.name);
+}
+printUser({ name: "kovid", age: 23 });
 export {};
