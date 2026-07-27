@@ -1,5 +1,5 @@
 // Auth controller logic
-import userModel from "../models/user.model"
+import userModel from "../models/user.model.js"
 
 import jwt from "jsonwebtoken"
 
@@ -8,6 +8,20 @@ async function sendTokenResponse(user,res) {
         id:user._id
     },process.env.JWT_SECRET,{
         expiresIn:"1h"
+    })
+
+    res.cookie("token",token)
+
+    res.status(200).json({
+        message,
+        success:true,
+        user:{
+            id:user._id,
+            email:user.email,
+            contact:user.contact,
+            fullName:user.fullName,
+            role:user.role
+        }
     })
 }
 
@@ -34,10 +48,11 @@ export const register = async (req,res)=>{
         fullName,
         email,
         password,
-        contact
+        contact,
+        role:isSeller?"seller":"buyer"
     })
-    return res.status(201).json({success:true,message:"User registered successfully",user})
-
+    await sendTokenResponse(user,res,"User registered successfully")
+    
 
 
     
