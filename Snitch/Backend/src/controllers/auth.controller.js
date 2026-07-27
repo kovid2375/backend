@@ -13,7 +13,7 @@ async function sendTokenResponse(user,res) {
     res.cookie("token",token)
 
     res.status(200).json({
-        message,
+        
         success:true,
         user:{
             id:user._id,
@@ -26,7 +26,7 @@ async function sendTokenResponse(user,res) {
 }
 
 export const register = async (req,res)=>{
-    const {fullName,email,password,contact} = req.body;
+    const {fullName,email,password,contact,isSeller} = req.body;
 
     try {
         const existingUser=await userModel.findOne({
@@ -55,5 +55,30 @@ export const register = async (req,res)=>{
     
 
 
+    
+}
+
+
+export const login = async(req,res)=>{
+    
+    const {email,password}=req.body
+    try {
+        const user=await userModel.findOne({email})
+        if(!user){
+            return res.status(400).json({success:false,message:"User not found"})
+        }
+        const isPasswordValid=await user.comparePassword(password)
+        if(!isPasswordValid){
+            return res.status(400).json({success:false,message:"Invalid password"})
+        }
+        await sendTokenResponse(user,res,"User logged in successfully")
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({success:false,message:"Internal Server Error"})
+    }
+}
+
+
+export const googleCallback=async (req,res)=>{
     
 }

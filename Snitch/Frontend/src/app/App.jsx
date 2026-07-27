@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import './App.css'
+import { Route, RouterProvider } from 'react-router-dom'
+import { routes } from './app.routes'
 
 function App() {
 
 
   return (
     <>
-      <h1>Hello World</h1>
+      <RouterProvider router={routes}/>
     </>
   )
 }
