@@ -20,7 +20,7 @@ passport.use(new GoogleStrategy({
     clientSecret:process.env.GOOGLE_CLIENT_SECRET,
     callbackURL:"/api/auth/google/callback",
     
-},(profile,done)=>{
+},(accessToken, refreshToken, profile,done)=>{
     return done(null,profile)
 }))
 app.use("/api/auth",authRouter)

@@ -164,8 +164,9 @@ export default function Login() {
               </div>
             </div>
 
-            {/* Google Button */}
-            <button
+            <div>
+              <a href="/api/auth/google">
+              <button 
               type="button"
               className="flex w-full items-center justify-center gap-3 rounded-xl border border-zinc-300 py-3 font-medium transition hover:bg-zinc-100"
             >
@@ -193,7 +194,8 @@ export default function Login() {
 
               Continue with Google
             </button>
-
+            </a>
+            </div>
             <p className="text-center text-sm text-zinc-500">
               Don't have an account?
               <button
