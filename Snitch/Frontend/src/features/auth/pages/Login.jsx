@@ -23,59 +23,59 @@ export default function Login() {
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleLogin({
-        email:form.email,
-        password:form.password
+    const user = await handleLogin({
+      email: form.email,
+      password: form.password,
     });
-    navigate("/");
+    navigate(user?.role === "seller" ? "/seller/dashboard" : "/");
   };
 
   return (
-    <div className="min-h-screen bg-zinc-100 flex">
+    <div className="min-h-screen bg-zinc-100 flex flex-col lg:flex-row">
       {/* Left Section */}
-      <div className="hidden lg:flex w-1/2 bg-black text-white items-center justify-center p-16">
-        <div className="max-w-md">
-          <ShoppingBag size={55} className="mb-8" />
+      <div className="flex w-full lg:w-1/2 bg-[#004D30] text-white items-center justify-center p-8 lg:p-16">
+        <div className="max-w-md text-center lg:text-left flex flex-col items-center lg:items-start">
+          <ShoppingBag className="w-12 h-12 lg:w-16 lg:h-16 mb-4 lg:mb-8" />
 
-          <h1 className="text-6xl font-black tracking-tight">
+          <h1 className="text-4xl lg:text-6xl font-black tracking-tight">
             SNITCH
           </h1>
 
-          <p className="mt-6 text-zinc-400 text-lg leading-8">
+          <p className="mt-4 lg:mt-6 text-zinc-400 text-sm lg:text-lg leading-relaxed lg:leading-8 hidden sm:block">
             Welcome back. Sign in to continue shopping premium fashion
             or manage your seller dashboard.
           </p>
 
-          <div className="mt-12 grid grid-cols-2 gap-8">
+          <div className="mt-6 lg:mt-12 grid grid-cols-2 gap-8 text-left">
             <div>
-              <h2 className="text-3xl font-bold">500K+</h2>
-              <p className="text-zinc-400">Happy Customers</p>
+              <h2 className="text-2xl lg:text-3xl font-bold">500K+</h2>
+              <p className="text-zinc-400 text-xs lg:text-base">Happy Customers</p>
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold">24/7</h2>
-              <p className="text-zinc-400">Customer Support</p>
+              <h2 className="text-2xl lg:text-3xl font-bold">24/7</h2>
+              <p className="text-zinc-400 text-xs lg:text-base">Customer Support</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Right Section */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
-        <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-zinc-900">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="w-full max-w-md rounded-3xl bg-white p-6 sm:p-8 shadow-2xl">
+          <div className="mb-6 sm:mb-8 text-center sm:text-left">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#004D30]">
               Welcome Back
             </h2>
 
-            <p className="mt-2 text-zinc-500">
+            <p className="mt-2 text-zinc-500 text-sm sm:text-base">
               Sign in to your account.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {/* Email */}
             <div>
               <label className="text-sm font-medium text-zinc-700">
@@ -88,7 +88,7 @@ export default function Login() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="john@example.com"
-                className="mt-2 w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none transition focus:border-black"
+                className="mt-1 sm:mt-2 w-full rounded-xl border border-zinc-300 px-3 py-2 sm:px-4 sm:py-3 outline-none transition focus:border-black text-sm sm:text-base"
               />
             </div>
 
@@ -98,39 +98,39 @@ export default function Login() {
                 Password
               </label>
 
-              <div className="relative mt-2">
+              <div className="relative mt-1 sm:mt-2">
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
                   value={form.password}
                   onChange={handleChange}
                   placeholder="********"
-                  className="w-full rounded-xl border border-zinc-300 px-4 py-3 pr-12 outline-none transition focus:border-black"
+                  className="w-full rounded-xl border border-zinc-300 px-3 py-2 sm:px-4 sm:py-3 pr-10 sm:pr-12 outline-none transition focus:border-black text-sm sm:text-base"
                 />
 
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-black"
+                  className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-black"
                 >
                   {showPassword ? (
-                    <EyeOff size={20} />
+                    <EyeOff size={18} className="sm:w-5 sm:h-5" />
                   ) : (
-                    <Eye size={20} />
+                    <Eye size={18} className="sm:w-5 sm:h-5" />
                   )}
                 </button>
               </div>
             </div>
 
             {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center justify-between text-xs sm:text-sm">
               <label className="flex items-center gap-2 text-zinc-600">
                 <input
                   type="checkbox"
                   name="remember"
                   checked={form.remember}
                   onChange={handleChange}
-                  className="h-4 w-4 accent-black"
+                  className="h-3 w-3 sm:h-4 sm:w-4 accent-black"
                 />
 
                 Remember me
@@ -147,18 +147,18 @@ export default function Login() {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full rounded-xl bg-black py-3 font-semibold text-white transition hover:bg-zinc-800"
+              className="w-full rounded-xl bg-[#004D30] py-2 sm:py-3 font-semibold text-white transition hover:bg-zinc-800 text-sm sm:text-base mt-2 sm:mt-0"
             >
               Sign In
             </button>
 
-            <div className="relative py-2">
+            <div className="relative py-2 sm:py-3">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-zinc-300"></div>
               </div>
 
               <div className="relative flex justify-center">
-                <span className="bg-white px-4 text-sm text-zinc-500">
+                <span className="bg-white px-3 sm:px-4 text-xs sm:text-sm text-zinc-500">
                   OR
                 </span>
               </div>
@@ -168,10 +168,10 @@ export default function Login() {
               <a href="/api/auth/google">
               <button 
               type="button"
-              className="flex w-full items-center justify-center gap-3 rounded-xl border border-zinc-300 py-3 font-medium transition hover:bg-zinc-100"
+              className="flex w-full items-center justify-center gap-2 sm:gap-3 rounded-xl border border-zinc-300 py-2 sm:py-3 font-medium transition hover:bg-zinc-100 text-sm sm:text-base"
             >
               <svg
-                className="h-5 w-5"
+                className="h-4 w-4 sm:h-5 sm:w-5"
                 viewBox="0 0 48 48"
               >
                 <path
@@ -196,11 +196,12 @@ export default function Login() {
             </button>
             </a>
             </div>
-            <p className="text-center text-sm text-zinc-500">
+            <p className="text-center text-xs sm:text-sm text-zinc-500 mt-4">
               Don't have an account?
               <button
+              onClick={() => navigate("/register")}
                 type="button"
-                className="ml-2 font-semibold text-black hover:underline"
+                className="ml-2 font-semibold text-[#004D30] hover:underline"
               >
                 Create Account
               </button>
