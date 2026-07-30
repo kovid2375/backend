@@ -9,6 +9,7 @@ import CreateProducts from "../features/sellerProduct/pages/CreateProducts";
 import Settings from "../features/sellerProduct/pages/Settings";
 import Help from "../features/sellerProduct/pages/Help";
 import Home from "../features/buyerProduct/pages/Home";
+import Protected from "../features/auth/components/Protected";
 
 export const routes = createBrowserRouter([
   {
@@ -36,23 +37,23 @@ export const routes = createBrowserRouter([
           },
           {
             path: "dashboard",
-            element: <Dashboard />,
+            element: <Protected role="seller"><Dashboard/></Protected>,
           },
           {
             path: "products",
-            element: <Products />,
+            element: <Protected role="seller"><Products/></Protected>,
           },
           {
             path: "create-product",
-            element: <CreateProducts />,
+            element: <Protected role="seller"><CreateProducts/></Protected>,
           },
           {
             path: "settings",
-            element: <Settings />,
+            element: <Protected role="seller"><Settings/></Protected>,
           },
           {
             path: "help",
-            element: <Help />,
+            element: <Protected role="seller"><Help/></Protected>,
           },
         ],
       },

@@ -1,6 +1,6 @@
 import express from "express"
 import { authenticateSeller } from "../middlewares/auth.middelware.js"
-import { createProducts, getSellerProducts } from "../controllers/product.controller.js"
+import { createProducts, getAllProducts, getSellerProducts } from "../controllers/product.controller.js"
 import multer from "multer"
 import { createProductValidator } from "../validator/product.validator.js"
 
@@ -19,6 +19,9 @@ router.post("/",authenticateSeller,upload.array("images",10),createProductValida
 //get products of the seller 
 
 router.get("/seller",authenticateSeller,getSellerProducts)
+
+// get products for the buyer
+router.get("/buyer",getAllProducts)
 
 
 

@@ -12,6 +12,7 @@ export default function Login() {
     email: "",
     password: "",
     remember: false,
+    isSeller: false,
   });
 
   const handleChange = (e) => {
@@ -76,6 +77,32 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            {/* Role Tabs */}
+            <div className="flex gap-4 mb-2">
+              <button
+                type="button"
+                onClick={() => setForm((prev) => ({ ...prev, isSeller: false }))}
+                className={`flex-1 py-2 sm:py-3 rounded-xl font-medium transition text-sm sm:text-base border ${
+                  !form.isSeller
+                    ? "bg-[#004D30] text-white border-[#004D30]"
+                    : "bg-white text-zinc-700 border-zinc-200 hover:bg-zinc-50"
+                }`}
+              >
+                Buyer
+              </button>
+              <button
+                type="button"
+                onClick={() => setForm((prev) => ({ ...prev, isSeller: true }))}
+                className={`flex-1 py-2 sm:py-3 rounded-xl font-medium transition text-sm sm:text-base border ${
+                  form.isSeller
+                    ? "bg-[#004D30] text-white border-[#004D30]"
+                    : "bg-white text-zinc-700 border-zinc-200 hover:bg-zinc-50"
+                }`}
+              >
+                Seller
+              </button>
+            </div>
+
             {/* Email */}
             <div>
               <label className="text-sm font-medium text-zinc-700">
@@ -144,6 +171,7 @@ export default function Login() {
               </button>
             </div>
 
+
             {/* Login Button */}
             <button
               type="submit"
@@ -152,50 +180,54 @@ export default function Login() {
               Sign In
             </button>
 
-            <div className="relative py-2 sm:py-3">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-zinc-300"></div>
-              </div>
+            {!form.isSeller && (
+              <>
+                <div className="relative py-2 sm:py-3">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-zinc-300"></div>
+                  </div>
 
-              <div className="relative flex justify-center">
-                <span className="bg-white px-3 sm:px-4 text-xs sm:text-sm text-zinc-500">
-                  OR
-                </span>
-              </div>
-            </div>
+                  <div className="relative flex justify-center">
+                    <span className="bg-white px-3 sm:px-4 text-xs sm:text-sm text-zinc-500">
+                      OR
+                    </span>
+                  </div>
+                </div>
 
-            <div>
-              <a href="/api/auth/google">
-              <button 
-              type="button"
-              className="flex w-full items-center justify-center gap-2 sm:gap-3 rounded-xl border border-zinc-300 py-2 sm:py-3 font-medium transition hover:bg-zinc-100 text-sm sm:text-base"
-            >
-              <svg
-                className="h-4 w-4 sm:h-5 sm:w-5"
-                viewBox="0 0 48 48"
-              >
-                <path
-                  fill="#FFC107"
-                  d="M43.6 20H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12S17.4 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-4z"
-                />
-                <path
-                  fill="#FF3D00"
-                  d="M6.3 14.7l6.6 4.8C14.7 15.3 19 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"
-                />
-                <path
-                  fill="#4CAF50"
-                  d="M24 44c5.2 0 10-2 13.5-5.3l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.4 39.6 16.1 44 24 44z"
-                />
-                <path
-                  fill="#1976D2"
-                  d="M43.6 20H42V20H24v8h11.3c-1.1 3.2-3.4 5.7-6.2 7.5l6.2 5.2C39.6 36.8 44 31 44 24c0-1.3-.1-2.7-.4-4z"
-                />
-              </svg>
+                <div>
+                  <a href="/api/auth/google">
+                  <button 
+                  type="button"
+                  className="flex w-full items-center justify-center gap-2 sm:gap-3 rounded-xl border border-zinc-300 py-2 sm:py-3 font-medium transition hover:bg-zinc-100 text-sm sm:text-base"
+                >
+                  <svg
+                    className="h-4 w-4 sm:h-5 sm:w-5"
+                    viewBox="0 0 48 48"
+                  >
+                    <path
+                      fill="#FFC107"
+                      d="M43.6 20H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12S17.4 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-4z"
+                    />
+                    <path
+                      fill="#FF3D00"
+                      d="M6.3 14.7l6.6 4.8C14.7 15.3 19 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"
+                    />
+                    <path
+                      fill="#4CAF50"
+                      d="M24 44c5.2 0 10-2 13.5-5.3l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.4 39.6 16.1 44 24 44z"
+                    />
+                    <path
+                      fill="#1976D2"
+                      d="M43.6 20H42V20H24v8h11.3c-1.1 3.2-3.4 5.7-6.2 7.5l6.2 5.2C39.6 36.8 44 31 44 24c0-1.3-.1-2.7-.4-4z"
+                    />
+                  </svg>
 
-              Continue with Google
-            </button>
-            </a>
-            </div>
+                  Continue with Google
+                </button>
+                </a>
+                </div>
+              </>
+            )}
             <p className="text-center text-xs sm:text-sm text-zinc-500 mt-4">
               Don't have an account?
               <button
