@@ -15,21 +15,26 @@ export async function getSellerProducts() {
     return response.data
 }
 export async function getProductById(productId){
-    const response=await productApiInstance.get(`/details/${productId}`)
+    const response=await productApiInstance.get(`/detail/${productId}`)
     return response.data
 }
 
-export async function addProductVariant(procuctId,newProductVariant){
-    console.log(newProductVariant)
+export async function addProductVariant(productId,newProductVariant){
     const formData=new FormData()
-    newProductVariant.images.array.forEach(image => {
-        formData.append(`images`,image.file)
-    });
+    newProductVariant.images.forEach((image) => {
+        formData.append("images", image)
+    })
     formData.append("stock",newProductVariant.stock)
     formData.append("priceAmount",newProductVariant.price)
     formData.append("attributes",JSON.stringify(newProductVariant.attributes))
 
-    const response=await productApiInstance.post(`/${procuctId}/variants`,formData)
+    if (newProductVariant.priceCurrency) {
+        formData.append("priceCurrency", newProductVariant.priceCurrency)
+    }
+
+    const response=await productApiInstance.post(`/${productId}/variants`,formData,{
+        headers:{"Content-Type":"multipart/form-data"}
+    })
     return response.data
 
 }

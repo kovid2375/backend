@@ -8,7 +8,7 @@ const app = require('./src/app');
 const mongoose = require('mongoose');
 
 function connecToDb(){
-    mongoose.connect("mongodb://kovid:2011@ac-fxootiv-shard-00-00.zb3ibuw.mongodb.net:27017,ac-fxootiv-shard-00-01.zb3ibuw.mongodb.net:27017,ac-fxootiv-shard-00-02.zb3ibuw.mongodb.net:27017/?ssl=true&replicaSet=atlas-8mj0ca-shard-0&authSource=admin&appName=Cluster0").then(()=>{
+    mongoose.connect("hello").then(()=>{
         console.log("connected to database")
     })
 } 

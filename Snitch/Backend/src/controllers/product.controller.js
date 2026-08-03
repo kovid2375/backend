@@ -98,7 +98,7 @@ export async function addProductVariant(req,res) {
     }
     const files =req.files
     const images=[]
-    if (files || files.length !== 0) {
+    if (files && files.length !== 0) {
         (await Promise.all(files.map(async (file) => {
             const image = await uploadFile({
                 buffer: file.buffer,
@@ -109,7 +109,7 @@ export async function addProductVariant(req,res) {
     }
     const price= req.body.priceAmount
     const stock=req.body.stock
-    const attributes=JSON.parse(req.parse.attributes||"{}")
+    const attributes=JSON.parse(req.body.attributes||"{}")
     console.log(price)
 
     product.variants.push({

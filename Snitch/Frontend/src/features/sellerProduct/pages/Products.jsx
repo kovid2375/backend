@@ -128,9 +128,12 @@ export default function Products() {
                           </div>
                         )}
                         <div>
-                          <p className="font-semibold text-zinc-900">
+                          <Link
+                            to={`/seller/products/${product._id}`}
+                            className="font-semibold text-zinc-900 hover:text-[#004d30]"
+                          >
                             {product.title}
-                          </p>
+                          </Link>
                           <p className="text-xs text-zinc-400">
                             Updated{" "}
                             {product.updatedAt
