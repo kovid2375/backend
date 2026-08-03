@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useSelector } from "react-redux";
 import { useBuyerProduct } from "../hooks/useBuyerProduct";
-
 export default function ProductSection() {
   const { products, loading } = useSelector((state) => state.buyerProduct);
   const { handleGetAllProducts } = useBuyerProduct();

@@ -5,6 +5,7 @@ import {
   setProductLoading,
   setProductError,
 } from "../state/product.slice";
+import { get } from "node:http";
 
 export const useProduct = () => {
   const dispatch = useDispatch();
@@ -46,11 +47,22 @@ export const useProduct = () => {
     }
   }
 
+  async function handleGetProductById(productId) {
+    const data=await getProductById(productId)
+    return data.product
+  }
+  async function handleAddProductVariant(productId,newProductVariant){
+    const data = await handleAddProductVariant(productId,newProductVariant)
+    return data
+  }
+
   return {
     sellerProducts,
     loading,
     error,
     handleCreateProduct,
     handleGetSellerProducts,
+    handleAddProductVariant,
+    handleGetProductById
   };
 };

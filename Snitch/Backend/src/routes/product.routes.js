@@ -1,6 +1,6 @@
 import express from "express"
-import { authenticateSeller } from "../middlewares/auth.middelware.js"
-import { createProducts, getAllProducts, getSellerProducts } from "../controllers/product.controller.js"
+import { authenticateSeller, authenticateUser } from "../middlewares/auth.middelware.js"
+import { addProductVariant, createProducts, getAllProducts, getProductDetails, getSellerProducts } from "../controllers/product.controller.js"
 import multer from "multer"
 import { createProductValidator } from "../validator/product.validator.js"
 
@@ -22,6 +22,13 @@ router.get("/seller",authenticateSeller,getSellerProducts)
 
 // get products for the buyer
 router.get("/buyer",getAllProducts)
+
+//get product detail
+router.get("/detail/:id",getProductDetails)
+
+//post products variants
+
+router.post("/:productId/variants",authenticateSeller,upload.array('images',5),addProductVariant)
 
 
 

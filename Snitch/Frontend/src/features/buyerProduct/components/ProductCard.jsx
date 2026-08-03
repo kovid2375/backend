@@ -5,8 +5,11 @@ import {
   Eye,
   BadgeCheck,
 } from "lucide-react";
+import ProductQuickView from "./ProductQuickView";
+import { useState } from "react";
 
 export default function ProductCard({ product }) {
+  const [open, setOpen] = useState(false);
   const {
     title,
     name,
@@ -42,6 +45,7 @@ export default function ProductCard({ product }) {
   };
 
   return (
+    <div>
     <div className="group overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
       {/* Image */}
       <div className="relative overflow-hidden">
@@ -111,11 +115,16 @@ export default function ProductCard({ product }) {
             Add
           </button>
 
-          <button className="rounded-xl border border-gray-200 p-3 transition hover:bg-gray-100">
+          <button onClick={()=>setOpen(true)} className="rounded-xl border border-gray-200 p-3 transition hover:bg-gray-100">
             <Eye size={20} />
           </button>
         </div>
+        
       </div>
+      
     </div>
+    {open && <ProductQuickView open={open} setOpen={setOpen} product={product} />}
+    </div>
+    
   );
 }

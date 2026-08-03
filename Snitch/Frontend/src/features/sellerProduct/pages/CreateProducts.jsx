@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CloudUpload, X, Plus } from "lucide-react";
 import { useProduct } from "../hooks/useProduct";
+import ProductVariants from "../components/ProductVariants";
 
 const MAX_IMAGES = 10;
 
@@ -20,6 +21,7 @@ export default function CreateProducts() {
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [variants, setVariants] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -317,8 +319,14 @@ export default function CreateProducts() {
                 </div>
               </div>
             </div>
+              
           </div>
+          <ProductVariants
+    variants={variants}
+    setVariants={setVariants}
+/>
         </div>
+        
       </form>
     </div>
   );
