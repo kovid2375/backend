@@ -8,9 +8,13 @@ import {
   Bell,
   ChevronDown,
 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const cartItems = useSelector((state) => state.cart.items);
+  const cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/20 bg-white/70 backdrop-blur-xl">
@@ -119,13 +123,13 @@ export default function Navbar() {
             </span>
           </button>
 
-          <button className="relative">
+          <Link to="/cart" className="relative">
             <ShoppingCart className="text-gray-700 hover:text-[#004d30]" />
 
             <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#004d30] text-xs text-white">
-              5
+              {cartCount}
             </span>
-          </button>
+          </Link>
 
           <img
             src="https://i.pravatar.cc/100"
@@ -172,7 +176,9 @@ export default function Navbar() {
             <div className="flex gap-6 pt-4">
               <Heart />
               <Bell />
-              <ShoppingCart />
+              <Link to="/cart">
+                <ShoppingCart />
+              </Link>
             </div>
           </div>
         </div>

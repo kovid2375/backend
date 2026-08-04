@@ -7,9 +7,13 @@ import {
 } from "lucide-react";
 import ProductQuickView from "./ProductQuickView";
 import { useState } from "react";
+import { useCart } from "../../cart/hook/useCart";
+import { getBuyerProductById } from "../services/buyerProduct.api";
 
 export default function ProductCard({ product }) {
   const [open, setOpen] = useState(false);
+  const [addingToCart, setAddingToCart] = useState(false);
+  const { handleAddItem } = useCart();
   const {
     title,
     name,
@@ -36,12 +40,45 @@ export default function ProductCard({ product }) {
 
   const priceAmount = typeof price === "object" ? price?.amount : price;
   const currency = typeof price === "object" ? price?.currency : "USD";
+  const defaultVariantId = product?.variants?.find((variant) => variant?._id)?._id;
 
   const formatPrice = (val) => {
     if (val === undefined || val === null) return "";
     if (currency === "INR") return `₹${val}`;
     if (currency === "EUR") return `€${val}`;
     return `$${val}`;
+  };
+
+  const handleAddToCartClick = async () => {
+    if (!product?._id || addingToCart) return;
+
+    try {
+      setAddingToCart(true);
+      let variantId = defaultVariantId;
+
+      if (!variantId) {
+        const data = await getBuyerProductById(product._id);
+        const resolvedVariants = data?.product?.variants || [];
+
+        if (resolvedVariants.length === 1 && resolvedVariants[0]?._id) {
+          variantId = resolvedVariants[0]._id;
+        } else if (resolvedVariants.length === 0) {
+          variantId = undefined;
+        } else {
+          setOpen(true);
+          return;
+        }
+      }
+
+      await handleAddItem({
+        productId: product._id,
+        variantId,
+      });
+    } catch (error) {
+      window.alert(error?.response?.data?.message || "Failed to add product to cart.");
+    } finally {
+      setAddingToCart(false);
+    }
   };
 
   return (
@@ -110,9 +147,13 @@ export default function ProductCard({ product }) {
 
         {/* Buttons */}
         <div className="mt-6 flex gap-3">
-          <button className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#004d30] py-3 font-semibold text-white transition hover:bg-[#004d28]">
+          <button
+            onClick={handleAddToCartClick}
+            disabled={addingToCart}
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#004d30] py-3 font-semibold text-white transition hover:bg-[#004d28] disabled:cursor-not-allowed disabled:opacity-60"
+          >
             <ShoppingCart size={18} />
-            Add
+            {addingToCart ? "Adding..." : defaultVariantId ? "Add to cart" : "View options"}
           </button>
 
           <button onClick={()=>setOpen(true)} className="rounded-xl border border-gray-200 p-3 transition hover:bg-gray-100">

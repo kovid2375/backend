@@ -10,6 +10,7 @@ import Settings from "../features/sellerProduct/pages/Settings";
 import Help from "../features/sellerProduct/pages/Help";
 import Home from "../features/buyerProduct/pages/Home";
 import SellerProductDetails from "@/features/sellerProduct/pages/SellerProductDetails";
+import Cart from "../features/cart/pages/Cart";
 import Protected from "../features/auth/components/Protected";
 
 export const routes = createBrowserRouter([
@@ -65,4 +66,8 @@ export const routes = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"/cart",
+    element:<Protected role="buyer"><Cart/></Protected>
+  }
 ]);
